@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Vue instance life cycle</title>
+        <script src="vue.js"> </script>
+    </head>
+    <body>
+        <div id="app"></div>        
+        <script>
+        	// Life cycle functions are functions that are executed automatically by Vue instance at certain point.
+        	// Calios: Feel like it's similar to life cycle in iOS controllers: `viewDidLoad`, `viewWillAppear`, `viewDidAppear`, etc.
+        	// Understanding it in Vue area, requires us to know how Vue actually works, including how its instance is rendered to normal html. It may also asks for a deep understanding of **visual DOM**(ToDo+1).
+	    	var vm = new Vue({
+	    		el: "#app",
+	    		data: {
+	    			content: " hello world "
+	    		},
+	    		template: "<div> {{content}} </div>",
+	    		// Calios: life cycle functions below exist directly in a vue instance, instead of wrapped in `methods: {}`
+	    		// More life cycle functions [here](https://vuejs.org/v2/api/#Options-Lifecycle-Hooks).
+	    		beforeCreate: function() {
+	    			console.log("beforeCreate");
+	    		},
+	    		created: function() {
+		    		console.log("created");	
+	    		},
+	    		beforeMount: function() {
+	    			console.log("beforeMount", this.$el);
+	    		},
+	    		// after creating vm.$el and replace "el" with it, `mounted` is called
+	    		mounted: function() {
+	    			console.log("mounted", this.$el);
+	    		},
+	    		// called when `vm.$destroy()` is called in console of browser.
+	    		// we often use the variable `vm` (short for ViewModel) to refer to our Vue instance.
+	    		beforeDestroy: function() {
+		    		console.log("beforeDestroy");		    			
+	    		},
+	    		destroyed: function() {
+		    		console.log("destroyed");		    				
+	    		},
+	    		// called when manually change value of `vm.$data.content` in console of browser.
+	    		beforeUpdate: function() {
+		    		console.log("beforeUpdate");	
+	    		},
+	    		updated: function() {
+		    		console.log("updated");		
+	    		}
+	    	})
+	    </script>
+    </body>	
+</html>
