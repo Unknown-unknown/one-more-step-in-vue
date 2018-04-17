@@ -1,0 +1,102 @@
+# What's the differences between `v-bind` and `v-model`? 
+
+First, always check the official document.
+
+### `v-bind`
+
+**Usage:**
+> One-sentence summary: dynamically bind one or more attributes, or a component prop to an expression.
+> - When used to bind the `class` or `style` attribute, it supports additional value types such as Array or Objects; While when used without an argument, can be used to bind an object containing attribute name-value pairs. In this mode, `class` and `style` doesn't support Array or Objects.
+
+
+```
+<!-- bind an attribute -->
+<img v-bind:src="imageSrc">
+
+<!-- shorthand -->
+<img :src="imageSrc">
+
+<!-- class binding -->
+<div :class="{red: isRed}"></div>
+
+<!-- style binding -->
+<div :style="{ fontSize: size + 'px' }"></div>
+
+<!-- binding an object of attribute -->
+<div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
+```
+
+> - When used for prop binding, the prop must be properly declared in the child component.
+
+For the props, you can think of the data "flows" from parent components to the child components, just like water flows from high altitude to the low, but never the other way around. Props, is the "filter" between these two, and only attributes registered on the child component can be passed from its parent. More details [here](https://vuejs.org/v2/guide/components-props.html#One-Way-Data-Flow).
+
+Here's an example:
+
+```
+Vue.component('blog-post', {
+	props: ['title']	,
+	template: '<h3>{{ title }}</h3>'
+})
+
+// used in its parent
+// 1.pass a static value
+<blog-post title="Hello world from Vue"></blog-post>
+// 2.pass a dynamic value
+<blog-post v-bind:title="post.title"></blog-post>
+```
+
+
+### `v-model`
+
+**Usage:**
+
+> Create a *two-way binding* on a form input element or a component. 
+> Although a bit magical, `v-model` is essentially syntax sugar for updating data on user input events, plus special care for some edge cases.
+
+According to [bbsimonbb](https://stackoverflow.com/a/44678583/1594792),
+```
+	<input v-model="something">
+```
+is just syntactic sugar for:
+
+	<input
+		v-bind:value="something"
+		:value="something" (shorthand syntax)
+		v-on:input="something = $event.target.value"
+		@input="something = $event.target.value" (shorthand)
+	>
+
+**Limited to:**
+
+> - `<input>`
+> - `<select>`
+> - `<textarea>`
+> - components
+
+More details: [API](https://vuejs.org/v2/api/index.html#v-model), [Form Input Bindings](https://vuejs.org/v2/guide/forms.html)
+
+Here are some examples:
+
+1.Bind to single form input:
+```
+<input v-model="name">
+<p>My name is: {{ name }} </p>
+```
+
+2.Bind to several form inputs: such as multiple checkboxes, bound to the same array; radio; select.
+```
+<div>
+	<input type="checkbox" value="Jack" v-model="checkedNames">
+	<label>Jack</label>
+	<input type="checkbox" value="Jack" v-model="checkedNames">
+	<label>Rose</label>
+	<input type="checkbox" value="Jack" v-model="checkedNames">
+	<label>Tim</label>
+	<br>
+	<span>Checked names: {{ checkedNames }}</span>
+</div>
+```
+
+### Some combinations
+
+[To be continued...](https://vuejs.org/v2/guide/forms.html#Value-Bindings)
