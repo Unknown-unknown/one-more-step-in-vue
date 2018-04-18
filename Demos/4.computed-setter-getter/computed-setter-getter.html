@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Computed setter getter</title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="app" @click="changeLastname">
+        	{{ fullName }}
+        </div>
+
+        <script>
+        	var vm = new Vue({
+        		el: "#app",
+        		data() {
+        			return {
+        				firstName: "Calios",
+        				lastName: {
+        					// Calios: It seems that an empty value is required if you need to use this key later. But WHY?? (0418)
+        					"key1": ""
+        				}
+        			}
+        		},
+        		computed: {
+        			fullName: {
+        				get: function() {
+	        				return this.firstName + " " + this.lastName.key1;
+	        			},
+	        			// Change value of `vm.fullName` manually in console of browser, then the displayed words change accordingly.
+	        			set: function(value) {
+	        				var arr = value.split(" ");
+	        				if(arr.length == 2) {
+		        				this.firstName = arr[0];
+		        				this.lastName.key1 = arr[1];
+	        				}
+	        			}
+        			}
+        		},
+        		methods: {
+        			changeLastname: function() {
+        				this.lastName.key1 = "value1";
+        			}
+        		}
+        	})
+        </script>
+    </body>
+</html>
