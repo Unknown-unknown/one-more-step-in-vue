@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Style binding</title>
+        <script src="../vue.js"></script>
+        <style type="text/css">
+    		.active { 
+    			color: red; 
+    		}
+	        .active-one { 
+	        	background: yellow; 
+	        }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+        	<!-- ** Whenever there comes a ":" (colon) in a tag, it means the content following it is kind of js, and allows js functions. ** -->
+
+        	<!-- 1.Bind style class with a class object -->
+        	<!-- <div :class="{ active: isActived }"
+        		@click="handleDivClick">
+        		Hello world
+        	</div> -->
+
+        	<!-- 2.Bind style class with an array -->
+			<!-- <div :class="[active, activeOne]"
+        		@click="handleDivClick">
+        		Hello world
+        	</div> -->
+
+        	<!-- 3.Bind style class with a style object -->
+        	<!-- <div :style="styleObj"
+        		@click="handleDivClick">
+        		Hello world
+        	</div> -->
+
+			<!-- 4.Bind style class with a style array -->
+        	<div :style="[styleObj, { fontSize: '50px' }]"
+        		@click="handleDivClick">
+        		Hello world
+        	</div>
+        </div>
+
+        <script>
+        	var vm = new Vue({
+        		el: "#app",
+        		data: {
+        			// 1.Bind style class with an object
+        			// isActived: false
+
+        			// 2.Bind style class with an array
+        			// active: "",
+        			// activeOne: ""
+
+        			// 3.Bind style class with a style object
+        			styleObj: {
+        				color: "black"
+        			}
+        		},
+        		methods: {
+        			handleDivClick: function() {
+        				// 1.Bind style class with an object
+        				// this.isActived = !this.isActived;
+
+        				// 2.Bind style class with an array
+        				// this.active = this.active === "active" ? "" : "active";
+        				// this.activeOne = this.activeOne === "active-one" ? "" : "active-one";
+
+        				// 3.Bind style class with a style object
+        				this.styleObj.color = this.styleObj.color === "black" ? "red" : "black";
+        			}
+        		}
+        	})
+        </script>
+    </body>
+</html>
