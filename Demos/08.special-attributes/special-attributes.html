@@ -19,7 +19,7 @@
         			<!-- `is`: 
         				used to work around restrictions on some elements and for dynamic components -->
         			<!-- More detail [here](https://vuejs.org/v2/api/#is) -->
-        			<tr is="row"></tr>
+        			<tr is="row" ref="row"></tr>
         			<tr is="row"></tr>
         			<tr is="row"></tr>
         		</tbody>
@@ -48,9 +48,11 @@
         			handleClick: function() {
         				// `ref`:
         				// used to register a reference to an element or a child component. The reference will be registered under the parent component’s `$refs` object.
-        				// You can use `ref` to locate certain dom element and get some attributes of it or so.
+                        // - when using `ref` in DOM element, `this.$refs.refName` gets the DOM element;
+                        // - when using `ref` in child component, `this.$refs.refName` get the object of vue component, with which you can get any data you defined in it.
         				// More detail [here](https://vuejs.org/v2/api/#ref).
         				console.log(this.$refs.hello);
+                        console.log(this.$refs.row);
         			}
         		}
         	})

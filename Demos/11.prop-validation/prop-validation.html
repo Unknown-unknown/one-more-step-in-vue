@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>prop validation</title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <!-- If parent pass a value for an attribute which child declares in props, child can accept it, and everyone is happy. In this case, parent's attribute key will not show in DOM. -->
+            <!-- However, if child doesn't delare the attribute and fails to accept the value from its parent, the attribute will show in child's outermost DOM element. This is called "non-prop attribute". -->
+        	<child content-d="hello"> </child>
+        </div>
+
+        <script>
+        	Vue.component('Child', {
+        		props: {
+                    // Here are some ways of validation below.
+                    contentA: Number,
+                    contentB: [ Number, String],
+                    contentC: {
+                        type: String,
+                        required: false,
+                        default: 'default value'
+                    },
+                    contentD: {
+                        type: String,
+                        validator: function(value) {
+                            return value.length > 4;
+                        }
+                    }
+                },
+        		template: '<div> {{ contentD }} </div>'
+                // template: '<div> hello </div>'
+        	})
+
+
+        	var vm = new Vue({
+        		el: '#app',
+        		data() {
+        			return {}
+        		}
+        	})
+        </script>
+    </body>
+</html>
