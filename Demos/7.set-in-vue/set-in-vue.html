@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>set in vue</title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        	<div v-for="(item, key, index) of userInfo">
+        		{{ index + 1 }}. {{ key }}: {{ item }}
+        	</div>
+        </div>
+
+        <script>
+        	var vm = new Vue({
+        		el: "#app",
+        		data() {
+        			return {
+        				// There are two ways to directly change value using `set` function of Vue in console.
+        				// 1. `Vue.set(vm.userInfo, "job", "freelancer")`
+        				// ** Desc: **
+        				// Function syntax: `Vue.set( target, key, value )`
+        				// Usage: Set a property on an object. If the object is reactive, ensure the property is created as a reactive property and trigger view updates. This is primarily used to get around the limitation that Vue cannot detect property additions.
+        				// Calios: not quite understand it...more usage scenario ?? (0419) 
+        				// 2. `vm.$set(vm.userInfo, "age", 18)`
+        				// ** Desc: **
+        				// This is just an alias for global `Vue.set`.
+        				userInfo: {
+        					name: "Calios",
+        					age: 28,
+        					job: "engineer"
+        				}
+        			}
+        		}
+        	})
+        </script>
+    </body>
+</html>
