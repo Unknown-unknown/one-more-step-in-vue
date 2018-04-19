@@ -1,5 +1,13 @@
 # One More Step In Vue: Demo Part
 
+### Description
+
+This is self-learning project for Vue.js, which follows an on-line course of Dell Lee [here](https://coding.imooc.com/class/203.html).
+
+It also include some statements, summaries and knowledge suppliment on my own to help understanding.
+
+Welcome to any learn-mate. :P
+
 
 ### Note
 

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>list rendering</title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        	<!-- 1. normal list rendering: using array -->
+        	<!-- Only by using these 7 methods can we change data and update UI respondingly: -->
+        	<!-- `push, pop, shift, unshift, splice, sort, reverse` -->
+        	<!-- If you change an array by its index, it does change the array, but UI elements won't change at all. -->
+        	<!-- ** Calios: Two questions below to rethink: ** -->
+        	<!-- A.`:key` is recommended in list rendering. But, why??? (0419) -->
+        	<!-- B. you can set `vm.list[0].text`="nice" in console of browser, and it reacts respondingly. Why can't `vm.list[0] = {id: "09", text: "not bad"}` work the same way??? -->
+        	<!-- <div v-for="(item, index) of list"
+        		 :key="item.id">
+        		{{ index }} - {{ item.text }}
+        	</div> -->
+
+        	<!-- 2. using tag `template` to avoid actually wrapping around your content with a dom -->
+        	<!-- Action: check elements of browser -->
+        	<!-- replace `div` of the outer layer with `template` -->
+        	<!-- <template v-for="(item, index) of list"
+        		 :key="item.id">
+        		 <div>
+	        		{{ index }} - {{ item.text }}
+	        	</div>
+	        	<span>
+	        		Just enjoy {{ item.text }}
+	        	</span>
+        	</template> -->
+
+			<!-- 3. normal list rendering: using object(dictionary) -->
+			<div v-for="(item, key, index) of userInfo">
+        		{{ index + 1 }}. {{ key }}: {{ item }}
+        	</div>
+
+        </div>
+
+        <script>
+        	var vm = new Vue({
+        		el: "#app",
+        		data() {
+        			return {
+        				// Mock response json from server. `id` here is the unique identifier for a single item.
+        				list: [{
+        					id: "000001",
+        					text: "good"
+        				}, {
+        					id: "000002",
+        					text: "morning"
+        				}, {
+        					id: "000003",
+        					text: "my"
+        				}, {
+        					id: "000004",
+        					text: "Thursday"
+        				}],
+        				userInfo: {
+        					name: "Calios",
+        					age: 28,
+        					job: "engineer"
+        				}
+        			}
+        		}
+        	})
+        </script>
+    </body>
+</html>

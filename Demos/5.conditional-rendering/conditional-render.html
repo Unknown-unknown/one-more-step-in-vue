@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>conditional render</title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        	<!-- 1. normal use of `v-if` and `v-else` -->
+        	<!-- <div v-if="show"> {{message}} </div> -->
+        	<!-- <div v-else> bye </div> -->
+        	<!-- <hr> -->
+
+        	<!-- 2. differences between `v-if` and `v-show`: -->
+        	<!-- Action: check elements in browser -->
+        	<!-- `v-if`: when the condition after it is false, the dom node itself is never added to dom;  -->
+        	<!-- `v-show`: for `v-show`, the dom node is actually added to dom, with a style of `display: none;`. -->
+        	<!-- In a nutshell, when dealing with frequent changing element, `v-show` is more efficient. (0418) -->
+        	<!-- <div v-if="show"> {{message}} </div>
+        	<div v-show="show"> {{ message }} </div> -->
+
+        	<!-- 3. use of `key` in conditional render -->
+        	<!-- Action: input a email, manually change `vm.show` to `true`, you'll find the value of textfield is still the one you've just input. That's not expected. -->
+        	<!-- Solution: add a `key` for each `input`. It's recommended to have a `key` in conditional render, and list render afterward. -->
+        	<div v-if="show">
+        		Username: <input type="text" key="user" />
+        	</div>
+        	<div v-else>
+        		Email: <input type="text" key="email" />
+        	</div>
+
+
+        </div>
+
+        <script>
+        	var vm = new Vue({
+        		el: "#app",
+        		data() {
+        			return {
+        				show: false,
+        				message: 'hello world'
+        			}
+        		},
+        		computed: {},
+        		methods: {}
+        	})
+        </script>
+    </body>
+</html>
