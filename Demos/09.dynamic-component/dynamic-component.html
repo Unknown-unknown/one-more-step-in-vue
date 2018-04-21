@@ -39,8 +39,9 @@
         		{{ tab }}
         	</button>
 
+            <!-- Tag `<component>` represents a dynamic component, `:is` means the part here will change according the value followed. -->
         	<component
-        		v-bind:is="currentTabComponent"
+        		:is="currentTabComponent"
         		class="tab">        		
         	</component>
         </div>
@@ -48,15 +49,16 @@
         <script>
 
         	Vue.component('tab-home', {
-        		template: '<div>Home component</div>'
+                // `v-once`: only render the element or component once, instead of add/remove them repeatly.
+        		template: '<div v-once>Home component</div>'
         	})
 
 	    	Vue.component('tab-posts', {
-        		template: '<div>Post component</div>'
+        		template: '<div v-once>Post component</div>'
         	})
 
         	Vue.component('tab-archive', {
-        		template: '<div>Archive component</div>'
+        		template: '<div v-once>Archive component</div>'
         	})
 
         	var vm = new Vue({

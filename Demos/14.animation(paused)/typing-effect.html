@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>typing effect</title>
+        <script src="../vue.js"></script>
+        <style>
+	        /* Comes from [here](http://dabblet.com/gist/1745856) */
+        	@keyframes typing { from { width: 0; } }
+			@keyframes blink-caret { 50% { border-color: transparent; } }
+
+			.typing-effect { 
+				font: bold 200% Consolas, Monaco, monospace;
+				border-right: .1em solid;
+				width: 16.5em; /* fallback */
+				width: 30ch; /* # of chars */
+				margin: 2em 1em;
+				white-space: nowrap;
+				overflow: hidden;
+				animation: typing 10s steps(30, end), /* # of steps = # of chars */
+				           blink-caret .5s step-end infinite alternate;
+			}
+        </style>
+    </head>
+    <body>
+        <div id="app">
+        	<h1>Amazing typing effect :P</h1>
+        	<div class="typing-effect"> This is a kind of typing effect.</div>
+        </div>
+
+        <script>
+        	var vm = new Vue({
+        		el: '#app',
+        		data() {
+        			return {}
+        		},
+        		computed: {},
+        		methods: {}
+        	})
+        </script>
+    </body>
+</html>
