@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>non-parent-child-component-data-pass/buss/publish-subscriber/observer</title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        	<!-- Here's a test for building communication between two child components. -->
+        	<!-- Aim: when clicking one child, change another child's content to the first one. -->
+        	<child content="child"></child>
+        	<child content="anotherChild"></child>
+        </div>
+
+        <script>
+
+        	Vue.prototype.bus = new Vue()
+
+        	Vue.component('child', {
+        		props: ['content'],
+        		data() {
+        			return {
+        				text: this.content
+        			}
+        		},
+        		template: '<div @click="handleClick"> {{ text }} </div>',
+        		methods: {
+        			handleClick: function() {
+        				this.bus.$emit('change', this.text);
+        			}
+        		},
+        		mounted: function() {
+        			var this_ = this;
+        			this_.bus.$on('change', function(msg) {
+        				this_.text = msg;
+        			})
+        		}
+        	})
+
+        	var vm = new Vue({
+        		el: '#app',
+        		data() {
+        			return {}
+        		},
+        		computed: {},
+        		methods: {}
+        	})
+        </script>
+    </body>
+</html>

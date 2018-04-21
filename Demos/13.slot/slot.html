@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>slot</title>
+        <script src="../vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+        	<!-- Problem: 
+        	- when we are willing to pass some DOM structure to child component, we'll have to wrap that part with a pair of `<div></div>`. 
+        	- when the past value is very long, this part of code will become all of a mess.
+        	-->
+        	<!-- <child content="<p> morning </p>"></child> -->
+
+
+        	<!-- Solution: -->
+        	<!-- 1. normal slot -->
+
+        	<!-- <child>
+        		<p> morning </p>
+        	</child> -->
+
+
+        	<!-- 2. named slot -->
+        	<!-- In some cases, we have multiple parts of child which are determined by parent. In order to distinguish different slots, we add a unique name for each.  -->
+
+        	<!-- <child>
+        		<div class="header" slot="header">header</div>
+        		<div class="footer" slot="footer">footer</div>
+        	</child> -->
+
+
+			<!-- 3.scoped slot -->
+			<!-- Sometimes we'll want to provide a component with a reusable slot that can access data from the child component. -->
+			<!-- To put it more clearly, parent determines how the data from child component is rendered, so child component is ought to pass out the rendered data. -->
+			<child>
+				<!-- we use tag `<template>` here just to avoid too many layers of `<div>`. You can replace it if you like. (Vue.js 2.5.0+)-->
+				<!-- The value of `slot-scope` can actually accept any valid JavaScript expression that can appear in the argument position of a function definiton (Calios: argument position??? 0421). This means we can use destructuring in `slot-scope` as follow. 
+				<template slot-scope="{ a }">
+					<h2>{{ a }}</h2>
+				</template> -->
+
+				<template slot-scope="slotProps">
+					<h3>{{slotProps.a}}</h3>
+				</template>
+			</child>
+        </div>
+
+        <script>
+        	Vue.component('child', {
+        		props: ['content'],
+        		data() {
+        			return {
+        				list: [1, 2, 3, 4]
+        			}
+        		},
+        		// Problem: 
+        		// template: `
+        		// 	<div>
+	        	// 		<div v-html="this.content"></div>
+        		// 	</div>
+        		// `
+
+        		// Solution:
+        		// 1. normal slot
+        		// use `<slot></slot>` in child component, and insert DOM structure as normal in parent component.
+        		// we can also provide a default value for slot when parent doesn't pass any slot value at all.
+
+        		// template: `
+	        	// 	<div>
+		        // 		<slot> night </slot>
+	        	// 		<p> child </p>
+	        	// 	</div>
+        		// 	`
+
+
+        		// 2. named slot
+        		// In some cases, we have multiple parts of child which are determined by parent. In order to distinguish different slots, we add a unique name for each.
+
+        		// template: `
+				// <div>
+				// 	<slot name="header"></slot>
+				// 	<div> content </div>
+				// 	<slot name="footer"></slot>
+				// </div>
+				// `
+
+
+				// 3. scoped slot
+				// We want child component to loop a list, while it's its parent who determines how to render the list. To make the feature possible, all we have to do is wrap with a `<slot>` element, then pass the slot any data relevant to its context.
+				template: `
+				<div>
+					<ul>
+						<slot
+							v-for="item of list"
+							:a=item
+						>
+						</slot>
+					</ul>
+				</div>
+				`
+
+        	})
+        	var vm = new Vue({
+        		el: '#app',
+        		data() {
+        			return {}
+        		},
+        		methods: {}
+        	})
+        </script>
+    </body>
+</html>

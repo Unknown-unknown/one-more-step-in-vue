@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>props and emit</title>
+        <script src="../vue.js"></script>
+        <style type="text/css">
+            #normal-props {
+                background: lightyellow;
+            }
+            #dynamically-pass-props-and-event {
+                background: lightblue;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <!-- 1. normal pass data to child component and listen to its events -->
+        	<div id="normal-props">
+                <counter :count=0 @inc="handleIncrease"></counter>
+                <counter :count=0 @inc="handleIncrease"></counter>
+                <hr>
+                <div> {{ total }} </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <!-- 2. dynamically pass props and event -->
+            <!-- Here we can use `v-bind` to dynamically pass props. This is especially useful when we don't know the exact content we're going to render ahead of time, like when fetching posts from an API. -->
+            <div id="dynamically-pass-props-and-event" 
+                :style="{ fontSize: postFontSize + 'em' }">
+                <blog-post 
+                    v-for="post in posts"
+                    v-bind:key="post.id"
+                    v-bind:post="post"
+                    v-on:enlarge-text="postFontSize += $event">
+                    <!-- To bind native action to a component, just append ".native" after the action as below -->
+                    <!-- @click.native="bindPrimitiveEvent"> -->
+                </blog-post>
+            </div>
+        </div>
+
+        <script>
+        // ** Attentions: **
+        // - A component's `data` option must be a function, so that each instance can maintain an independent copy of the returned data object.
+        // - Data is allowed to flow from parent to child component, never vice versa. That means you can never directly change a value passed from parent (that's why `number` exists). Because, once the data transferred is a reference, change on one chile component instance will effect another.
+
+            // 1. props normal usage
+        	Vue.component('counter', {
+        		props: ['count'],
+        		template: '<div @click="increase"> {{ number }} </div>',
+
+        		data() {
+        			return {
+        				number: this.count
+        			}
+        		},
+        		methods: {
+        			increase: function() {
+        				this.number += 1;
+                        // Child component throws out an action for parent to listen to.
+        				this.$emit('inc', 1);
+        			}
+        		}
+        	})
+
+            // 2. dynamically pass props
+            Vue.component('blog-post', {
+                props: [ 'post' ],
+                // use `` for multiple lines of code
+                template: `
+                <div>
+                    <h3>{{ post.title }}</h3>
+                    <button @click="$emit('enlarge-text', 0.1)"> Enlarge text </button>
+                </div>`
+            })
+
+        	var vm = new Vue({
+        		el: '#app',
+        		data() {
+        			return {
+        				total: 0,
+
+                        postFontSize: 1,
+                        posts: [
+                            { id: 1, title: 'My journey with Vue' },
+                            { id: 2, title: 'Blogging with Vue' },
+                            { id: 3, title: 'Why Vue is so fun' }
+                        ]
+        			}
+        		},
+        		methods: {
+        			handleIncrease: function(step) {
+        				this.total += step;
+        			},
+                    bindPrimitiveEvent: function() {
+                        alert('bindPrimitiveEvent');
+                    }
+        		}
+        	})
+        </script>
+    </body>
+</html>
