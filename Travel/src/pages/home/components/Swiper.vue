@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <swiper :options="swiperOption">
+    <swiper :options="swiperOption" v-if="showSwiper">
       <swiper-slide v-for="item of list" :key="item.id">
         <img class="swiper-img" :src="item.imgUrl" />
       </swiper-slide>
@@ -22,14 +22,18 @@ export default {
         loop: true
   		}
   	}
+  },
+  computed: {
+    showSwiper () {
+      return this.list.length
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-// TODO: missing pagination.
   .wrapper >>> .swiper-pagination-bullet-active
-    background: #000
+    background: #fff
   .wrapper
     overflow: hidden
     width: 100%

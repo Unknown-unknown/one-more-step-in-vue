@@ -28,7 +28,8 @@
 
 ### TODO
 
-- `swiper-pagination` in home and gallary both fail to show. Check version of Swiper maybe...
+- ~~`swiper-pagination` in home and gallary both fail to show. Check version of Swiper maybe...~~ `npm install vue-awesome-swiper@2.6.7 --save` solved it.
+
 
 ### What's next
 
