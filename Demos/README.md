@@ -19,5 +19,4 @@ Welcome to any learn-mate. :P
 
 ##### MVVM vs MVP:
 
-
 Compared to MVP(model-view-presenter) pattern in original web development, Vue uses MVVM(model-view-view model) pattern. In MVP, much of code lines in presenter is to handle DOMs here and there. While in Vue, we can only focus on the view (DOM) and model (plain JavaScript objects), and leave all the view-model part (including DOM listeners and data bindings) to Vue itself. Try to understand MVVM, and Vue. :D

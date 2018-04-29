@@ -1,1 +1,15 @@
-Travel/
+.DS_Store
+Travel/node_modules/
+Travel/dist/
+Travel/static/mock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

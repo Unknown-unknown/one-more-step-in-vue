@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>flexbox demo</title>
+        <!-- <script src="../vue.js"></script> -->
+        <style>
+        	.container {
+        		display: flex;
+
+        		/*justify-content: center;*/        		
+
+        		text-align: center;
+        	}
+
+        	.container > div {
+        	}
+        	.home {
+        		/*flex-grow: 1;*/
+        		background: lightblue;
+	    		flex: 1 1 300px;
+        	}
+        	.search {
+        		/*flex-grow: 1;*/
+        		background: lightcoral;
+        		/*margin-left: auto;*/
+        	}
+        	.logout {
+        		background: lightgreen;
+        		/*flex-grow: 2;*/
+        		/*margin-left: auto;*/
+        	}
+        </style>
+    </head>
+    <body>
+        <div id="app">
+        	<nav class="container">
+        	     <div class="home">Home</div>
+        	     <div class="search">Search</div>
+        	     <div class="logout">Logout</div>
+        	</nav>
+        </div>
+
+        <script>
+        	// var vm = new Vue({
+        	// 	el: '#app',
+        	// 	data() {
+        	// 		return {}
+        	// 	},
+        	// 	computed: {},
+        	// 	methods: {}
+        	// })
+        </script>
+    </body>
+</html>
